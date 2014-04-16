@@ -1,0 +1,42 @@
+#include <cassert>
+template<typename T, typename C = int>
+class CMatrix{
+private:
+	// members;
+    T* m_pElem;
+	size_t m_nRow, m_nCol;   //the number of rows: m_nRow. So as to m_nCol;
+public:
+	// constructors;
+    CMatrix(const size_t& row, const size_t& m_nCol);
+	CMatrix(const CMatrix<T>& matrix);
+	~CMatrix();
+	// methods;
+	// print the matrix out;
+	void print(std::ostream& out);
+    // operator+;
+	CMatrix<T, C> operator+() const;
+	CMatrix<T, C> operator+(const CMatrix<T>& matrix);
+	// operator-;
+	CMatrix<T, C> operator-() const;
+	CMatrix<T, C> operator-(const CMatrix<T>& matrix);
+	// operator*;
+	CMatrix<T, C> operator*(const C& data) const;
+	CMatrix<T, C> operator*(const CMatrix<T>& matrix) const;
+	// operator ()
+	T& operator()(size_t i; size_t j) const;
+	// operator =
+	CMatrix<T, C>& operator=(const CMatrix<T>& matrix);
+	// operator +=
+	CMatrix<T, C>& operator+=(const CMatrix<T>& matrix);
+	// row num;
+	size_t mRows() const;
+	// col num;
+	size_t mCols() const;
+};
+
+   // CMatrix(const size_t& row, const size_t& m_nCol);
+template<typename T, typename C>
+CMatrix<T,C>::CMatrix(const size_t& row, const size_t& col):
+	m_nRow(row), m_nCol(col){
+		
+	}

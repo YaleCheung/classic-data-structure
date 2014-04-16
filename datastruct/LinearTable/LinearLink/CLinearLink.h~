@@ -1,0 +1,96 @@
+#ifndef CLINEARLINK_HHH
+#define CLINEARLINK_HHH
+template <typename T>
+class CLinearLink{
+private:
+	// Data;
+    SNode<T>* m_pHead;
+public:
+	// constructors;
+	CLinearLink();
+	~CLinearLink();
+	// methods;
+    CLinearLink& mInsert(T data);
+	int mDelete(const T& data);
+	bool mFind(const T& data) const;
+}; 
+// defination;
+// constructors;
+template<typenamte T>
+CLinearLink<T>::CLinearLink() {} 
+
+template<typename T>
+CLinearLink<T>::~CLinearLink(){
+	SNode<T>* pTmp;
+	while(m_pHead){
+	       pTmp = m_pHead;
+           m_pHead = m_pHead -> m_pNext;
+	       delete pTmp;
+	       pTmp = NULL;
+	}
+}
+// methods;
+// Insert;
+template<typename T>
+CLinearLink& CLinearLink<T>::mInsert(const T& data){
+	if(m_pHead == NULL){
+         m_pHead = new Node<T>(data);
+	}else{
+        SNode<T>* pTmp = m_pHead;
+	    while(pTmp -> m_pNext)
+	        pTmp = pTmp -> m_pNext;
+		pTmp -> m_pNext = new Node<T>(data);
+	}
+    return *this;	
+}
+
+// methods;
+// Delete;
+template<typename T>
+int CLinearLink<T>::mDelete(const T& data){
+	if(m_pHead == NULL)
+		return;
+	if(m_pHead -> m_nData == data){
+		delete m_pHead;
+	    m_pHead = NULL; 
+	}else{
+	    SNode<T> pDel = NULL;	
+		SNode<T> pCur = m_pHead;
+		SNode<T> pDelNext = NULL;
+           while((pCur -> m_pNext != NULL) && (pCur-> m_pNext -> m_nData != data){
+			pCur = pCur -> m_pNext;
+		}
+		if(pCur->m_pNext==NULL)
+		    return -1;
+		else{
+		    pDel = pCur -> m_pNext;
+            if(NULL == pDel -> m_pNext){
+		        delete pDel;
+				pCur->m_pNext = NULL;
+            }else{
+                pDelNext = pDel->m_pNext;
+				delete pDel;
+				pCur->m_pNext = pDelNext;
+		    }
+			return 1;
+		}
+	}
+}
+
+// methods;
+// Find;
+template<typename T>
+bool CLinearLink<T>::mFind(const T& data) const{
+	SNode<T> pTmp;
+	if((m_pHead == NULL) || (m_pHead -> m_nData != data))
+		return false;
+	while((pTmp != NULL) && (pTmp -> m_nData != data))
+        pTmp = pTmp -> m_pNext;
+	if(pTmp == NULL)
+		return false;
+	else
+		return true;
+}
+
+
+#endif
