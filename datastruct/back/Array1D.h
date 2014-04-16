@@ -1,3 +1,4 @@
+"create by zy"
 #ifndef ARRAY1D_HHH
 #define ARRAY1D_HHH
 #include <stdlib.h>
